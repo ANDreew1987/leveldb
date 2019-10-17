@@ -107,6 +107,12 @@ if(BUILD_SHARED_LIBS)
 endif(BUILD_SHARED_LIBS)
 
 add_library(leveldb "")
+
+set(leveldb_DEBUG_POSTFIX "d"
+    CACHE STRING "Default debug postfix")
+    
+set_target_properties(leveldb PROPERTIES DEBUG_POSTFIX "${leveldb_DEBUG_POSTFIX}")
+
 target_sources(leveldb
   PRIVATE
     "${PROJECT_BINARY_DIR}/${LEVELDB_PORT_CONFIG_DIR}/port_config.h"
@@ -198,6 +204,8 @@ target_sources(leveldb
     "${LEVELDB_PUBLIC_INCLUDE_DIR}/table.h"
     "${LEVELDB_PUBLIC_INCLUDE_DIR}/write_batch.h"
 )
+
+mark_as_advanced(leveldb_DEBUG_POSTFIX)
 
 if (WIN32)
   target_sources(leveldb
